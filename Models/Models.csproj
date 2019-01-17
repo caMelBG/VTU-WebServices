@@ -47,12 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Course.cs" />
-    <Compile Include="Enrollment.cs" />
-    <Compile Include="GradeEnum.cs" />
+    <Compile Include="DbModels\Course.cs" />
+    <Compile Include="DbModels\Enrollment.cs" />
+    <Compile Include="DbModels\GradeEnum.cs" />
+    <Compile Include="DtoModels\CourseDto.cs" />
+    <Compile Include="DtoModels\EnrollmentDto.cs" />
+    <Compile Include="DtoModels\StudentDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Student.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="DbModels\Student.cs" />
+    <Compile Include="DbModels\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

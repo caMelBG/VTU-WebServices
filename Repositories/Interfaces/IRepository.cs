@@ -17,5 +17,7 @@ namespace Repositories.Interfaces
         void Delete(object id);
 
         void Detach(T entity);
+
+        void Attach(T entity);
     }
 }

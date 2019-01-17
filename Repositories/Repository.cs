@@ -85,5 +85,11 @@ namespace Repositories
             DbEntityEntry entry = this.Context.Entry(entity);
             entry.State = EntityState.Detached;
         }
+
+        public virtual void Attach(T entity)
+        {
+            DbEntityEntry entry = this.Context.Entry(entity);
+            entry.State = EntityState.Detached;
+        }
     }
 }

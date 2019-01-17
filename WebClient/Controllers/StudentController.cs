@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.DtoModels;
 using Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,33 +17,87 @@ namespace WebClient.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Student> Get()
+        public IEnumerable<StudentDto> Get()
         {
-            var students = _db.Students.All();
+            var students = _db.Students.All().Select(x => ConvertToStudentDto(x));
+
             return students;
         }
 
         [HttpGet]
-        public Student Get(int id)
+        public StudentDto Get(int id)
         {
             var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
+            if (student == null)
+            {
 
-            return student;
+            }
+
+            return ConvertToStudentDto(student);
         }
 
         [HttpPost]
-        public void Post([FromBody]Student value)
+        public void Post([FromBody]StudentDto dto)
         {
+            _db.Students.Add(ConvertToStudent(dto));
+            _db.SaveChanges();
         }
 
         [HttpPut]
-        public void Put(int id, [FromBody]Student value)
+        public void Put(int id, [FromBody]StudentDto dto)
         {
+            var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
+            if (student == null)
+            {
+
+            }
+
+            if (dto.StudentID != id)
+            {
+
+            }
+
+            student.FirstMidName = dto.FirstMidName;
+            student.LastName = dto.LastName;
+            student.EnrollmentDate = dto.EnrollmentDate;
+            
+            _db.Students.Update(student);
+            _db.SaveChanges();
         }
 
         [HttpDelete]
         public void Delete(int id)
         {
+            var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
+            if (student == null)
+            {
+
+            }
+
+            _db.Students.Delete(id);
+            _db.SaveChanges();
+        }
+
+        private Student ConvertToStudent(StudentDto student)
+        {
+            return new Student()
+            {
+                StudentID = student.StudentID,
+                FirstMidName = student.FirstMidName,
+                LastName = student.LastName,
+                EnrollmentDate = student.EnrollmentDate,
+            };
+        }
+
+        private StudentDto ConvertToStudentDto(Student student)
+        {
+            return new StudentDto()
+            {
+                StudentID = student.StudentID,
+                FirstMidName = student.FirstMidName,
+                LastName = student.LastName,
+                EnrollmentDate = student.EnrollmentDate,
+            };
         }
     }
 }
