@@ -1,6 +1,6 @@
 namespace DataAccess.Migrations
 {
-    using DataAccess.Models;
+    using Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
@@ -14,7 +14,7 @@ namespace DataAccess.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DataAccess.UniversityContext context)
+        protected override void Seed(UniversityContext context)
         {
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);

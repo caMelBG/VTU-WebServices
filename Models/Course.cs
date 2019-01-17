@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataAccess.Models
+namespace Models
 {
     public class Course
     {

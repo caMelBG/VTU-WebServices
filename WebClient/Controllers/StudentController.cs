@@ -1,37 +1,46 @@
-﻿using System;
+﻿using Models;
+using Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace WebClient.Controllers
 {
-    public class ValuesController : ApiController
+    public class StudentController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        private IUnitOfWork _db;
+
+        public StudentController(IUnitOfWork unitOfWork)
         {
-            return new string[] { "value1", "value2" };
+            _db = unitOfWork;
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        [HttpGet]
+        public IEnumerable<Student> Get()
         {
-            return "value";
+            var students = _db.Students.All();
+            return students;
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        [HttpGet]
+        public Student Get(int id)
+        {
+            var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
+
+            return student;
+        }
+
+        [HttpPost]
+        public void Post([FromBody]Student value)
         {
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public void Put(int id, [FromBody]Student value)
         {
         }
 
-        // DELETE api/values/5
+        [HttpDelete]
         public void Delete(int id)
         {
         }
