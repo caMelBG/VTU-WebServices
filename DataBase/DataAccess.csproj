@@ -59,15 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201804161844427_InitialMigration.cs" />
-    <Compile Include="Migrations\201804161844427_InitialMigration.Designer.cs">
-      <DependentUpon>201804161844427_InitialMigration.cs</DependentUpon>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Migrations\201901172032290_Initial.cs" />
+    <Compile Include="Migrations\201901172032290_Initial.Designer.cs">
+      <DependentUpon>201901172032290_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804261802122_Identity.cs" />
-    <Compile Include="Migrations\201804261802122_Identity.Designer.cs">
-      <DependentUpon>201804261802122_Identity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UniversityContext.cs" />
     <Compile Include="UniversityInitializer.cs" />
@@ -77,18 +73,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804161844427_InitialMigration.resx">
-      <DependentUpon>201804161844427_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804261802122_Identity.resx">
-      <DependentUpon>201804261802122_Identity.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{f606645d-c2df-4b32-961a-2475ed5a3280}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901172032290_Initial.resx">
+      <DependentUpon>201901172032290_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

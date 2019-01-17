@@ -4,9 +4,9 @@ using System.Data.Entity;
 
 namespace DataAccess
 {
-    public class UniversityContext : IdentityDbContext<User>
+    public class UniversityContext : DbContext
     {
-        public UniversityContext() : base("UniversityContext", throwIfV1Schema: false)
+        public UniversityContext() : base("UniversityContext")
         {
             Database.SetInitializer<UniversityContext>(new UniversityInitializer<UniversityContext>());
         }

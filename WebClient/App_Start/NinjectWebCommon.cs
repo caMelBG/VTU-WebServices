@@ -3,6 +3,7 @@
 
 namespace WebClient.App_Start
 {
+    using DataAccess;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
@@ -10,6 +11,7 @@ namespace WebClient.App_Start
     using Repositories;
     using Repositories.Interfaces;
     using System;
+    using System.Data.Entity;
     using System.Web;
 
     public static class NinjectWebCommon
@@ -62,6 +64,7 @@ namespace WebClient.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<DbContext>().To<UniversityContext>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }

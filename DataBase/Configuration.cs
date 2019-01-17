@@ -1,36 +1,20 @@
 namespace DataAccess.Migrations
 {
     using Models;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DataAccess.UniversityContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<UniversityContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(UniversityContext context)
         {
-            var roleStore = new RoleStore<IdentityRole>(context);
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
-            roleManager.Create(new IdentityRole("User"));
-            roleManager.Create(new IdentityRole("Admin"));
-
-            var user = new User()
-            {
-                Email = "admin@admin.com",
-                UserName = "admin@admin.com"
-            };
-            var userStore = new UserStore<User>(context);
-            var userManager = new UserManager<User>(userStore);
-            userManager.Create(user, "admina");
-            userManager.AddToRole(user.Id, "Admin");
-
             var students = new List<Student>
             {
                 new Student{StudentID=1,FirstMidName="Carson",LastName="Alexander",EnrollmentDate=DateTime.Parse("2005-09-01")},

@@ -19,7 +19,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public IEnumerable<StudentDto> Get()
         {
-            var students = _db.Students.All().Select(x => ConvertToStudentDto(x));
+            var students = _db.Students.All().ToList().Select(x => ConvertToStudentDto(x));
 
             return students;
         }

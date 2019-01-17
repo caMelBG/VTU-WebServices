@@ -9,7 +9,5 @@ namespace Models.DtoModels
         public string Title { get; set; }
 
         public int Credits { get; set; }
-
-        public virtual ICollection<EnrollmentDto> Enrollments { get; set; }
     }
 }

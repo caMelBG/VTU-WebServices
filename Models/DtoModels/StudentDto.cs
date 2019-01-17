@@ -12,7 +12,5 @@ namespace Models.DtoModels
         public string FirstMidName { get; set; }
 
         public DateTime EnrollmentDate { get; set; }
-
-        public virtual ICollection<EnrollmentDto> Enrollments { get; set; }
     }
 }
