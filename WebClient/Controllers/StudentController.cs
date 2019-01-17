@@ -1,5 +1,6 @@
 ﻿using Models;
 using Models.DtoModels;
+using NLog;
 using Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace WebClient.Controllers
     public class StudentController : ApiController
     {
         private IUnitOfWork _db;
+        private ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public StudentController(IUnitOfWork unitOfWork)
         {
@@ -30,7 +32,7 @@ namespace WebClient.Controllers
             var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
             if (student == null)
             {
-
+                _logger.Error("Student with Id:{0} dosent exist", id);
             }
 
             return ConvertToStudentDto(student);
@@ -39,8 +41,11 @@ namespace WebClient.Controllers
         [HttpPost]
         public void Post([FromBody]StudentDto dto)
         {
-            _db.Students.Add(ConvertToStudent(dto));
+            var student = ConvertToStudent(dto);
+            _db.Students.Add(student);
             _db.SaveChanges();
+
+            _logger.Info("Student with first name {0} was created", dto.FirstMidName);
         }
 
         [HttpPut]
@@ -49,14 +54,9 @@ namespace WebClient.Controllers
             var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
             if (student == null)
             {
-
+                _logger.Error("Student with Id:{0} dosent exist", id);
             }
-
-            if (dto.StudentID != id)
-            {
-
-            }
-
+            
             student.FirstMidName = dto.FirstMidName;
             student.LastName = dto.LastName;
             student.EnrollmentDate = dto.EnrollmentDate;
@@ -68,14 +68,17 @@ namespace WebClient.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
+            _logger.Info("Delete student with id:{0} - Start", id);
             var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
             if (student == null)
             {
-
+                _logger.Error("Student with Id:{0} dosent exist", id);
             }
 
             _db.Students.Delete(id);
             _db.SaveChanges();
+
+            _logger.Info("Student with Id:{0} has been successfuly deleted", id);
         }
 
         private Student ConvertToStudent(StudentDto student)

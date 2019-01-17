@@ -1,0 +1,5 @@
+2019-01-17 23:16:26.3852|INFO|WebClient.Controllers.StudentController|Student with Id:0 was created
+2019-01-17 23:16:26.3852|INFO|WebClient.Controllers.StudentController|Student with Id:0 was created
+2019-01-17 23:20:15.2992|INFO|WebClient.Controllers.StudentController|Student with Id:0 was created
+2019-01-17 23:21:12.0685|INFO|WebClient.Controllers.StudentController|Delete student with id:1 - Start
+2019-01-17 23:21:12.8590|INFO|WebClient.Controllers.StudentController|Student with Id:1 has been successfuly deleted
