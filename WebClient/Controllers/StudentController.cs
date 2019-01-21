@@ -1,21 +1,20 @@
-﻿using Models;
-using Models.DtoModels;
-using NLog;
-using Repositories.Interfaces;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
+using NLog;
+
+using Models;
+using Models.DtoModels;
+using Repositories.Interfaces;
+
 namespace WebClient.Controllers
 {
-    public class StudentController : ApiController
+    public class StudentController : BaseController
     {
-        private IUnitOfWork _db;
-        private ILogger _logger = LogManager.GetCurrentClassLogger();
-
-        public StudentController(IUnitOfWork unitOfWork)
+        public StudentController(IUnitOfWork unitOfWork) : base(unitOfWork, LogManager.GetCurrentClassLogger())
         {
-            _db = unitOfWork;
         }
 
         /// <summary>
@@ -62,13 +61,22 @@ namespace WebClient.Controllers
         /// <response code="200">OK</response>
         /// <response code="400">BadRequest</response>
         [HttpPost]
-        public void Post([FromBody]StudentDto dto)
+        public IHttpActionResult Post([FromBody]StudentDto dto)
         {
-            var student = ConvertToStudent(dto);
-            _db.Students.Add(student);
-            _db.SaveChanges();
+            try
+            {
+                var student = ConvertToStudent(dto);
+                _db.Students.Add(student);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            _logger.Info("Student with first name {0} was created", dto.FirstMidName);
+            string message = string.Format("Student with first name {0} was created", dto.FirstMidName);
+            _logger.Info(message);
+            return Ok(message);
         }
 
         /// <summary>
@@ -88,18 +96,26 @@ namespace WebClient.Controllers
             {
                 var errorMessage = string.Format("Student with Id:{0} dosent exist", id);
                 _logger.Error(errorMessage);
-                BadRequest(errorMessage);
+                NotFound();
             }
-            
-            student.FirstMidName = dto.FirstMidName;
-            student.LastName = dto.LastName;
-            student.EnrollmentDate = dto.EnrollmentDate;
-            
-            _db.Students.Update(student);
-            _db.SaveChanges();
 
-            _logger.Info("Student with id {0} was updated", id);
-            return Ok();
+            try
+            {
+                student.FirstMidName = dto.FirstMidName;
+                student.LastName = dto.LastName;
+                student.EnrollmentDate = dto.EnrollmentDate;
+
+                _db.Students.Update(student);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            string message = string.Format("Student with id {0} was updated", id);
+            _logger.Info(message);
+            return Ok(message);
         }
 
         /// <summary>
@@ -111,19 +127,29 @@ namespace WebClient.Controllers
         /// <response code="400">BadRequest</response>
         /// <response code="404">NotFound</response>
         [HttpDelete]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             _logger.Info("Delete student with id:{0} - Start", id);
             var student = _db.Students.All().FirstOrDefault(x => x.StudentID == id);
             if (student == null)
             {
                 _logger.Error("Student with Id:{0} dosent exist", id);
+                return NotFound();
             }
 
-            _db.Students.Delete(id);
-            _db.SaveChanges();
+            try
+            {
+                _db.Students.Delete(id);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            _logger.Info("Student with Id:{0} has been successfuly deleted", id);
+            var message = string.Format("Student with Id:{0} has been successfuly deleted", id);
+            _logger.Info(message);
+            return Ok(message);
         }
 
         private Student ConvertToStudent(StudentDto student)
