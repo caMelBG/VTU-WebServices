@@ -15,10 +15,10 @@
 * SqLite            - Database 
 * EntityFramework   - ORM Framework
 * SOAP              - Web Service
-* WebApi            - RESTful Api framework
+* WebApi            - RESTful Api Framework
 * Swagger           - Api documentation
 * NLog              - Logger provider
-* Ninject           - Dependency injection framework
+* Ninject           - Dependency Injection Framework
 
 
 ### Инсталация
@@ -27,13 +27,14 @@
  - Стартирайте Solution file с Visual studio
  - Restore Nuget packages
  - Отворете Package Manager конзолата и изпълнете `Update-Database`
+ - Стартирайте проекта
 
 
 
 
 ### За довършване
 
- - Показване на последните качени хивотни
+ - ТОДО
 
 
 
