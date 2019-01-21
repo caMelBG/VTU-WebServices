@@ -11,14 +11,14 @@
 
 Системата използва следните технологии
 
-* C# - programming language
-* SqLite - Database 
-* EntityFramework - ORM framework
-* SOAP - web service
-* WebApi - RESTful Api framework
-* Swagger - Api documentation
-* NLog - logger provider
-* Ninject - Dependency injection framework
+* C#                Programming language
+* SqLite            Database 
+* EntityFramework   ORM Framework
+* SOAP              Web Service
+* WebApi            RESTful Api framework
+* Swagger           Api documentation
+* NLog              Logger provider
+* Ninject           Dependency injection framework
 
 
 ### Инсталация
