@@ -61,7 +61,7 @@ namespace WebClient
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -176,6 +176,7 @@ namespace WebClient
                         // alternative implementation for ISwaggerProvider with the CustomProvider option.
                         //
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
+                        c.IncludeXmlComments(string.Format(@"{0}\bin\WebClient.XML", System.AppDomain.CurrentDomain.BaseDirectory));
                     })
                 .EnableSwaggerUi(c =>
                     {
