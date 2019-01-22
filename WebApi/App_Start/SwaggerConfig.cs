@@ -32,8 +32,8 @@ namespace WebClient
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "WebClient");
 
+                        c.SingleApiVersion("v2", "UniversitySystem");
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();
@@ -176,7 +176,7 @@ namespace WebClient
                         // alternative implementation for ISwaggerProvider with the CustomProvider option.
                         //
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
-                        c.IncludeXmlComments(string.Format(@"{0}\bin\WebClient.XML", System.AppDomain.CurrentDomain.BaseDirectory));
+                        c.IncludeXmlComments(string.Format(@"{0}\bin\WebApi.XML", System.AppDomain.CurrentDomain.BaseDirectory));
                     })
                 .EnableSwaggerUi(c =>
                     {

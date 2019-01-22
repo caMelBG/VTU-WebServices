@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{0DE5D72E-AD2F-48B1-968D-EC8436F7688E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{0DE5D72E-AD2F-48B1-968D-EC8436F7688E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataBase\DataAccess.csproj", "{842B9AA8-2D8F-467C-B8F1-774C360F1E73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{7AF31A85-F4C2-4F71-9BB2-DABFE0FE1C17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{F606645D-C2DF-4B32-961A-2475ED5A3280}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOAP", "SOAP\SOAP.csproj", "{1BA45181-E507-40DB-968D-704529F97798}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F606645D-C2DF-4B32-961A-2475ED5A3280}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F606645D-C2DF-4B32-961A-2475ED5A3280}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F606645D-C2DF-4B32-961A-2475ED5A3280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA45181-E507-40DB-968D-704529F97798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA45181-E507-40DB-968D-704529F97798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA45181-E507-40DB-968D-704529F97798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA45181-E507-40DB-968D-704529F97798}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
