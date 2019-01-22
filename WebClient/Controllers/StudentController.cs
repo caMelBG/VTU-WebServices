@@ -8,13 +8,18 @@ using NLog;
 using Models;
 using Models.DtoModels;
 using Repositories.Interfaces;
+using Models.Converters.Interface;
 
 namespace WebClient.Controllers
 {
     public class StudentController : BaseController
     {
-        public StudentController(IUnitOfWork unitOfWork) : base(unitOfWork, LogManager.GetCurrentClassLogger())
+        private IModelConverter<Student, StudentDto> _modelConverter;
+
+        public StudentController(IUnitOfWork unitOfWork, IModelConverter<Student, StudentDto> modelConverter) 
+            : base(unitOfWork, LogManager.GetCurrentClassLogger())
         {
+            _modelConverter = modelConverter;
         }
 
         /// <summary>
@@ -26,7 +31,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public IEnumerable<StudentDto> Get()
         {
-            var students = _db.Students.All().ToList().Select(x => ConvertToStudentDto(x));
+            var students = _db.Students.All().ToList().Select(x => _modelConverter.ConvertTo(x));
 
             return students;
         }
@@ -50,13 +55,13 @@ namespace WebClient.Controllers
                 return BadRequest(errorMessage);
             }
 
-            return Ok(ConvertToStudentDto(student));
+            return Ok(_modelConverter.ConvertTo(student));
         }
 
         /// <summary>
         /// Creates new student
         /// </summary>
-        /// <param name="student">The student object to create</param>
+        /// <param name="dto">The student object to create</param>
         /// <returns>The created student</returns>
         /// <response code="200">OK</response>
         /// <response code="400">BadRequest</response>
@@ -65,7 +70,7 @@ namespace WebClient.Controllers
         {
             try
             {
-                var student = ConvertToStudent(dto);
+                var student = _modelConverter.ConvertTo(dto);
                 _db.Students.Add(student);
                 _db.SaveChanges();
             }
@@ -83,7 +88,7 @@ namespace WebClient.Controllers
         /// Updates an existing student
         /// </summary>
         /// <param name="id">The id of the student to be updated</param>
-        /// <param name="student">The student object containing the update data</param>
+        /// <param name="dto">The student object containing the update data</param>
         /// <returns>Status code 204 or corresponding error code</returns>
         /// <response code="204">NoContent</response>
         /// <response code="400">BadRequest</response>
@@ -150,28 +155,6 @@ namespace WebClient.Controllers
             var message = string.Format("Student with Id:{0} has been successfuly deleted", id);
             _logger.Info(message);
             return Ok(message);
-        }
-
-        private Student ConvertToStudent(StudentDto student)
-        {
-            return new Student()
-            {
-                StudentID = student.StudentID,
-                FirstMidName = student.FirstMidName,
-                LastName = student.LastName,
-                EnrollmentDate = student.EnrollmentDate,
-            };
-        }
-
-        private StudentDto ConvertToStudentDto(Student student)
-        {
-            return new StudentDto()
-            {
-                StudentID = student.StudentID,
-                FirstMidName = student.FirstMidName,
-                LastName = student.LastName,
-                EnrollmentDate = student.EnrollmentDate,
-            };
         }
     }
 }

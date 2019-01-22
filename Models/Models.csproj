@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\Interface\IModelConverter.cs" />
+    <Compile Include="Converters\CourseConverter.cs" />
     <Compile Include="DbModels\Course.cs" />
     <Compile Include="DbModels\Enrollment.cs" />
     <Compile Include="DbModels\GradeEnum.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DbModels\Student.cs" />
     <Compile Include="DbModels\User.cs" />
+    <Compile Include="Converters\StudentConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -56,7 +56,7 @@ namespace WebClient.Controllers
         /// <summary>
         /// Creates new Enrollment
         /// </summary>
-        /// <param name="Enrollment">The Enrollment object to create</param>
+        /// <param name="dto">The Enrollment object to create</param>
         /// <returns>The created Enrollment</returns>
         /// <response code="200">OK</response>
         /// <response code="400">BadRequest</response>
@@ -83,7 +83,7 @@ namespace WebClient.Controllers
         /// Updates an existing Enrollment
         /// </summary>
         /// <param name="id">The id of the Enrollment to be updated</param>
-        /// <param name="Enrollment">The Enrollment object containing the update data</param>
+        /// <param name="dto">The Enrollment object containing the update data</param>
         /// <returns>Status code 204 or corresponding error code</returns>
         /// <response code="204">NoContent</response>
         /// <response code="400">BadRequest</response>

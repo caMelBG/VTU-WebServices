@@ -8,13 +8,18 @@ using NLog;
 using Models;
 using Models.DtoModels;
 using Repositories.Interfaces;
+using Models.Converters.Interface;
 
 namespace WebClient.Controllers
 {
     public class CourseController : BaseController
     {
-        public CourseController(IUnitOfWork unitOfWork) : base(unitOfWork, LogManager.GetCurrentClassLogger())
+        private IModelConverter<Course, CourseDto> _modelConverter;
+
+        public CourseController(IUnitOfWork unitOfWork, IModelConverter<Course, CourseDto> modelConverter) 
+            : base(unitOfWork, LogManager.GetCurrentClassLogger())
         {
+            _modelConverter = modelConverter;
         }
 
         /// <summary>
@@ -26,7 +31,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public IEnumerable<CourseDto> Get()
         {
-            var Courses = _db.Courses.All().ToList().Select(x => ConvertToCourseDto(x));
+            var Courses = _db.Courses.All().ToList().Select(x => _modelConverter.ConvertTo(x));
 
             return Courses;
         }
@@ -50,13 +55,13 @@ namespace WebClient.Controllers
                 return BadRequest(errorMessage);
             }
 
-            return Ok(ConvertToCourseDto(Course));
+            return Ok(_modelConverter.ConvertTo(Course));
         }
 
         /// <summary>
         /// Creates new Course
         /// </summary>
-        /// <param name="Course">The Course object to create</param>
+        /// <param name="dto">The Course object to create</param>
         /// <returns>The created Course</returns>
         /// <response code="200">OK</response>
         /// <response code="400">BadRequest</response>
@@ -65,7 +70,7 @@ namespace WebClient.Controllers
         {
             try
             {
-                var Course = ConvertToCourse(dto);
+                var Course = _modelConverter.ConvertTo(dto);
                 _db.Courses.Add(Course);
                 _db.SaveChanges();
             }
@@ -83,7 +88,7 @@ namespace WebClient.Controllers
         /// Updates an existing Course
         /// </summary>
         /// <param name="id">The id of the Course to be updated</param>
-        /// <param name="Course">The Course object containing the update data</param>
+        /// <param name="dto">The Course object containing the update data</param>
         /// <returns>Status code 204 or corresponding error code</returns>
         /// <response code="204">NoContent</response>
         /// <response code="400">BadRequest</response>
@@ -149,26 +154,6 @@ namespace WebClient.Controllers
             var message = string.Format("Course with Id:{0} has been successfuly deleted", id);
             _logger.Info(message);
             return Ok(message);
-        }
-
-        private Course ConvertToCourse(CourseDto course)
-        {
-            return new Course()
-            {
-                CourseID = course.CourseID,
-                Title = course.Title,
-                Credits = course.Credits,
-            };
-        }
-
-        private CourseDto ConvertToCourseDto(Course course)
-        {
-            return new CourseDto()
-            {
-                CourseID = course.CourseID,
-                Title = course.Title,
-                Credits = course.Credits,
-            };
         }
     }
 }
