@@ -31,11 +31,11 @@ namespace SOAP
         }
 
         [WebMethod]
-        public IEnumerable<StudentDto> GetAll()
+        public List<StudentDto> GetAll()
         {
             var students = _db.Students.All().ToList().Select(x => _converter.ConvertTo(x));
 
-            return students;
+            return students.ToList();
         }
 
         [WebMethod]

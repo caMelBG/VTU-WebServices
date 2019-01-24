@@ -5,6 +5,10 @@ namespace WebClient.App_Start
 {
     using DataAccess;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+    using Models;
+    using Models.Converters;
+    using Models.Converters.Interface;
+    using Models.DtoModels;
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
@@ -66,6 +70,8 @@ namespace WebClient.App_Start
         {
             kernel.Bind<DbContext>().To<UniversityContext>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            kernel.Bind<IModelConverter<Student, StudentDto>>().To<StudentConverter>();
+            kernel.Bind<IModelConverter<Course, CourseDto>>().To<CourseConverter>();
         }
     }
 }
